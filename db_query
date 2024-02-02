@@ -1,0 +1,13 @@
+use classicmodels;
+select customerNumber  from orders
+where  orderNumber in (
+	select orderNumber
+	from orderdetails
+	where productCode in (
+	select productCode
+	from products
+	where productLine = 'Classic Cars'
+	)
+	group by customerNumber
+  	having sum(orderNumber) > 23
+);
